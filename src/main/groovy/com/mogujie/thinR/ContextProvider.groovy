@@ -26,6 +26,10 @@ class ContextProvider {
         if (isHighVersion) {
             compileTask = project.tasks.findByName("compile${varNameCap}JavaWithJavac")
             dexTask = project.tasks.findByName("transformClassesWithDexFor${varNameCap}")
+            //after android gradle plugin version 3.x.x, the transform* task has changed their names
+            if (dexTask == null) {
+                dexTask = project.tasks.findByName("transformClassesBuilderWithDexFor${varNameCap}")
+            }
         } else {
             compileTask = project.tasks.findByName("compile${varNameCap}Java")
             dexTask = project.tasks.findByName("dex${varNameCap}")
